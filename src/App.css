@@ -1,38 +1,175 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-bar{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+.tab{
+  padding: 10px;
+}
+
+.tab:hover {
+  cursor: pointer;
+  background-color: plum;
+ }
+
+ .navFont:hover{
+  background-color:plum;
+ }
+
+.headerForPages{
+  margin: 0 auto;
+  text-align:center;
+}
+
+.homeBody{
+  display: flex;
+}
+
+.homeParagraph{
+  padding: 20px;
+  background-color: white;
+}
+
+.homeParagraphIn{
+  position: relative;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+ 
 }
 
-.App-link {
-  color: #61dafb;
+.rearrangeLife{
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.parent{
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
 }
+
+.child{
+  position: relative;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center{
+  background-color: white;
+  padding: 5px 20px ;
+  outline-style: solid;
+  outline-color:  palevioletred;
+  outline-width: 5px;
+}
+
+.headerForColor{
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  padding: 20px;
+}
+
+.textOnColor{
+  position: relative;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  color: black;
+  background-color:#E8D82A;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+
+}
+.poetryBody{
+  display:grid; 
+  grid-template-columns: repeat( auto-fit, minmax(450px, 1fr));
+}
+
+.poetrySet{
+  padding: 10px;
+  border: 8px solid plum;
+  background-color: white;
+}
+
+.centeringPoetryImg{
+  background-color: white;
+  position: relative;
+  display: flex;
+  top: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.centeringPoetryWords{
+  position: relative;
+  display: table;
+  margin-left: auto;
+  margin-right:auto;
+  
+}
+
+.line{
+  line-height: 1.3;
+}
+
+.musicExplination{
+  background-color: white;
+  color: purple;
+  line-height: 1.5;
+  margin: 10px;
+  padding: 10px;
+  font-style:italic;
+}
+
+.videosGrid{
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(466px, 1fr) );
+}
+
+.videoWrapping{
+  padding: 10px;
+  background-color: palevioletred;
+}
+
+.video{
+   position: relative;
+   top:0;
+   width: 100%;
+   height: 100%;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.toTopButton{
+  position: fixed; 
+  bottom: 20px; 
+  right: 20px; 
+  z-index: 99; 
+  outline: none;
+  border: none;
+  background-color: #E8D82A;
+  color: black; 
+  cursor: pointer; 
+  padding: 10px; 
+  border-radius: 5px; 
+  font-size: 14px; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.toTopButton:hover {
+  background-color:palevioletred; 
+}
+
+
