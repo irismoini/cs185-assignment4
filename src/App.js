@@ -41,21 +41,22 @@ export class App extends Component {
     ]
 
     return (
-      <SimpleReactLightbox>
-        <body className="body">
-          <div className="nav-bar">
-            <TabList tabs={tabs}
-              changeTab={this.changeTab}
-              activeTab={this.state.activeTab} />
-          </div>
 
+      <body className="body">
+        <div className="nav-bar">
+          <TabList tabs={tabs}
+            changeTab={this.changeTab}
+            activeTab={this.state.activeTab} />
+        </div>
+        <SimpleReactLightbox>
           <div className="main-body">
             <Body activeTab={this.state.activeTab} />
           </div>
+        </SimpleReactLightbox>
 
-          <ScrollToTop />
-        </body>
-      </SimpleReactLightbox>
+        <ScrollToTop />
+      </body>
+
     );
   }
 }
