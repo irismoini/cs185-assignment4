@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/cs185-assignment4/static/css/main.d80a3c40.chunk.css",
+    "main.js": "/cs185-assignment4/static/js/main.3fc6d84d.chunk.js",
+    "main.js.map": "/cs185-assignment4/static/js/main.3fc6d84d.chunk.js.map",
+    "runtime-main.js": "/cs185-assignment4/static/js/runtime-main.a77fc7e5.js",
+    "runtime-main.js.map": "/cs185-assignment4/static/js/runtime-main.a77fc7e5.js.map",
+    "static/js/2.593e92e9.chunk.js": "/cs185-assignment4/static/js/2.593e92e9.chunk.js",
+    "static/js/2.593e92e9.chunk.js.map": "/cs185-assignment4/static/js/2.593e92e9.chunk.js.map",
+    "index.html": "/cs185-assignment4/index.html",
+    "precache-manifest.89f1f97544f6e29de4f7359222d91921.js": "/cs185-assignment4/precache-manifest.89f1f97544f6e29de4f7359222d91921.js",
+    "service-worker.js": "/cs185-assignment4/service-worker.js",
+    "static/css/main.d80a3c40.chunk.css.map": "/cs185-assignment4/static/css/main.d80a3c40.chunk.css.map",
+    "static/js/2.593e92e9.chunk.js.LICENSE.txt": "/cs185-assignment4/static/js/2.593e92e9.chunk.js.LICENSE.txt",
+    "static/media/f1.jpg": "/cs185-assignment4/static/media/f1.79cfe399.jpg",
+    "static/media/f4.jpg": "/cs185-assignment4/static/media/f4.5da03b61.jpg",
+    "static/media/f5.jpg": "/cs185-assignment4/static/media/f5.c0e2a818.jpg",
+    "static/media/l1.jpg": "/cs185-assignment4/static/media/l1.3fe62ba3.jpg",
+    "static/media/lan5.jpg": "/cs185-assignment4/static/media/lan5.504d0440.jpg",
+    "static/media/p2.jpg": "/cs185-assignment4/static/media/p2.071f28a4.jpg",
+    "static/media/profilepicture.jpg": "/cs185-assignment4/static/media/profilepicture.f17b4c76.jpg",
+    "static/media/yellow10.jpg": "/cs185-assignment4/static/media/yellow10.89f3d1aa.jpg",
+    "static/media/yellow3.jpg": "/cs185-assignment4/static/media/yellow3.43cf71e1.jpg",
+    "static/media/yellow4.jpg": "/cs185-assignment4/static/media/yellow4.95cd469d.jpg",
+    "static/media/yellow6.jpg": "/cs185-assignment4/static/media/yellow6.1ca8c022.jpg",
+    "static/media/yellow9.jpg": "/cs185-assignment4/static/media/yellow9.6d8cfb13.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a77fc7e5.js",
+    "static/js/2.593e92e9.chunk.js",
+    "static/css/main.d80a3c40.chunk.css",
+    "static/js/main.3fc6d84d.chunk.js"
+  ]
+}
