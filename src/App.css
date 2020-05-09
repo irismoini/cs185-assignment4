@@ -150,6 +150,48 @@
    align-items: center;
 }
 
+.guestBookBody{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.formStyle{
+  background-color: pink;
+  max-height: 420px;
+  max-width: 550px
+}
+
+.formElements{
+  text-align: center;
+}
+
+.formButton{
+  position: relative;
+  top:30px;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postStyle{
+  background-color: pink;
+  padding: 10px;
+  border: 5px white solid;
+ 
+}
+
+.scroll{
+  height: 60vh;
+  position: relative;
+  top: 53px;
+  overflow-y: auto;
+}
+
+.postElements{
+  text-align: center;
+}
+
 .toTopButton{
   position: fixed; 
   bottom: 20px; 
@@ -171,5 +213,6 @@
 .toTopButton:hover {
   background-color:palevioletred; 
 }
+
 
 

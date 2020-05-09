@@ -11,6 +11,7 @@ const options = {
 
 export class LifeInColor extends Component {
     render() {
+        document.title = "Life In Color";
         return (
             <div>
                 <div className="rearrangeLife">

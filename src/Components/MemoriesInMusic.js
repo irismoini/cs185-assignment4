@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export class MemoriesInMusic extends Component {
     render() {
+        document.title = "Memories In Music";
         return (
             <div>
                 <div className="headerForPages">

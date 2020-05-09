@@ -15,7 +15,8 @@ export class App extends Component {
     super(props);
     this.state = {
       activeTab: 1,
-      data:{}
+      data:{},
+  
     }
     this.changeTab = (id) => {
       this.setState({
@@ -75,14 +76,12 @@ export class App extends Component {
         title: "Guest Book"
       }
     ]
-  
-  
+
     return (
 
       <body className="body">
         <div className="nav-bar">
-        
-      
+
           <TabList tabs={tabs}
             changeTab={this.changeTab}
             activeTab={this.state.activeTab} />

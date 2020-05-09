@@ -11,6 +11,7 @@ const options = {
 
 export class RecoveryInPoetry extends Component {
     render() {
+        document.title = "Recovery In Poetry";
         return (
             <div>
                 <div className="headerForPages">
