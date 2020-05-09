@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 const firebase = require('firebase');
 
 export class Posts extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -18,9 +17,7 @@ export class Posts extends Component {
             },
             items: [],
         }
-
     }
-
 
     componentDidMount() {
         const itemsRef = firebase.database().ref('data');
@@ -42,35 +39,31 @@ export class Posts extends Component {
                 items: newState
             });
         });
-
     }
 
     render() {
 
-        return (      
-                <div className="scroll">
-                    <ul className="postElements">
+        return (
+            <div className="scroll">
+                <ul className="postElements">
 
-                        {this.state.items.map((item) => {
-                            if(item.visibility=="Yes"){
-                                return null;
-                            }
-                            return (
-                                <motion.div animate={{ x: -40 }} transition={{duration: 1.0}}>
+                    {this.state.items.map((item) => {
+                        if (item.visibility == "Yes") {
+                            return null;
+                        }
+                        return (
+                            <motion.div animate={{ x: -40 }} transition={{ duration: 1.0 }}>
                                 <div className="postStyle">
                                     <p>{item.startedAt}</p>
                                     <p>{item.name}</p>
                                     <p>{item.description}</p>
                                     <p>{item.message}</p>
                                 </div>
-                                </motion.div>
-                               
-                               
-
-                            )
-                        })}
-                    </ul>
-                </div>
+                            </motion.div>
+                        )
+                    })}
+                </ul>
+            </div>
         );
     }
 }

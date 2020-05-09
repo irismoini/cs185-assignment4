@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export class GuestBook extends Component {
   render() {
-    document.title = "Guest Book"; 
+    document.title = "Guest Book";
     return (
       <div>
 
@@ -15,17 +15,13 @@ export class GuestBook extends Component {
         </div>
 
         <div className="guestBookBody">
-        <motion.div animate={{ y: 50 }} transition={{duration: 1.0}}>
-          <Form />
-        </motion.div>
-
+          <motion.div animate={{ y: 50 }} transition={{ duration: 1.0 }}>
+            <Form />
+          </motion.div>
           <Posts />
-          
         </div>
-      
 
       </div>
-
     );
   }
 }

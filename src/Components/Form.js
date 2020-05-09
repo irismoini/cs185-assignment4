@@ -24,18 +24,15 @@ export class Form extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
 
-
     handleSubmit(e) {
         e.preventDefault();
         const itemsRef = firebase.database().ref('data');
-
 
         var dateTime = new Date().toLocaleString();
         const item = {
@@ -62,11 +59,7 @@ export class Form extends Component {
 
     render() {
         return (
-         
-
             <form className='formStyle' onSubmit={this.handleSubmit}>
-
-
 
                 <h2 className='formElements'>Submission Form</h2>
                 <div className='formElements'>

@@ -35,8 +35,6 @@ export class App extends Component {
     })
   }
 
-  
-
   componentDidUpdate(prevProps, prevState, snapshoyt){
 	//only call set state here if it is wrapped in a condition
 	//if you initialize this.state.shouldUpdate and have not changed it yet then this will not run
@@ -52,8 +50,6 @@ export class App extends Component {
 }
 
   render() {
-  
-
     const tabs = [
       {
         id: 1,
