@@ -7,10 +7,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "firebase": "^7.14.3",
     "react": "^16.13.1",
+    "react-alert": "^7.0.0",
+    "react-art": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "simple-react-lightbox": "^2.7.3-2",
+    "react-native": "^0.62.2",
+    "react-native-web": "^0.12.2",
+    "react-router-dom": "^5.1.2",
+    "react-router-native": "^5.1.2",
+    "react-scripts": "^3.4.1",
+    "simple-react-lightbox": "^2.8.0",
     "styled-components": "^5.1.0"
   },
   "scripts": {
@@ -39,5 +46,4 @@
   "devDependencies": {
     "gh-pages": "^2.2.0"
   }
-  
 }
