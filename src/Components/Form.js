@@ -34,6 +34,8 @@ export class Form extends Component {
         e.preventDefault();
         const itemsRef = firebase.database().ref('data');
 
+     
+
         var dateTime = new Date().toLocaleString();
         const item = {
             name: this.state.name,
@@ -79,8 +81,8 @@ export class Form extends Component {
 
                 <div className='formElements'>
                     <p>Would you like your message to be private?</p>
-                    <select name="visibility" onChange={this.handleChange}>
-                        <option value={this.state.visibility} selected disabled hidden> Select an Option </option>
+                    <select name="visibility" onChange={this.handleChange} value={this.state.visibility} required='true'>
+                        <option value="" selected disabled hidden> Select an Option </option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
