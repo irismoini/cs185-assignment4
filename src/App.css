@@ -192,6 +192,15 @@
   text-align: center;
 }
 
+.movieBody{
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+}
+
+.movieBody > div:hover{
+  opacity: .7;
+}
+
 .toTopButton{
   position: fixed; 
   bottom: 20px; 

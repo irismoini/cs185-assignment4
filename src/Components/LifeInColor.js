@@ -36,7 +36,6 @@ export class LifeInColor extends Component {
                                 <img src={require('../images/f1.jpg')} />
                             </div>
                         </div>
-                    </div>
 
                     <div class="child">
                         <div class="center">
@@ -80,6 +79,7 @@ export class LifeInColor extends Component {
                             <img src={require('../images/yellow9.jpg')} />
                         </div>
                     </div>
+                </div>
                 </SRLWrapper>
 
             </div>
