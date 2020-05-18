@@ -4,14 +4,14 @@ import axios from 'axios';
 import { SRLWrapper } from "simple-react-lightbox";
 import ScrollToTop from "./ScrollToTop";
 
-const lalaLand=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt3783958");
-const crazyRichAsians=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt3104988");
-const bohemianRhapsody=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt1727824");
-const exMachina=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt0470752");
-const ladyBird=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt4925292");
-const easyA=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt1282140");
-const princessMononoke=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt0119698");
-const lettersToJuliet=axios.get("http://www.omdbapi.com/?apikey=36739a38&i=tt0892318");
+const lalaLand=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt3783958");
+const crazyRichAsians=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt3104988");
+const bohemianRhapsody=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt1727824");
+const exMachina=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt0470752");
+const ladyBird=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt4925292");
+const easyA=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt1282140");
+const princessMononoke=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt0119698");
+const lettersToJuliet=axios.get("https://www.omdbapi.com/?apikey=36739a38&i=tt0892318");
 
 
 const options = {
