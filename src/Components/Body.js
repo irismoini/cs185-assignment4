@@ -5,7 +5,10 @@ import LifeInColor from './LifeInColor';
 import RecoveryInPoetry from './RecoveryInPoetry';
 import MemoriesInMusic from './MemoriesInMusic';
 import GuestBook from './GuestBook';
-import Movies from './Movies.js';
+import Movies from './Movies';
+import AddMovie from './AddMovie';
+import CreateList from './CreateList';
+import NewMovies from './NewMovies';
 
 export class Body extends Component {
     displayContent = () => {
@@ -20,8 +23,12 @@ export class Body extends Component {
             return <MemoriesInMusic />
         }else if(activeTab==5){
             return <GuestBook/>
+        }else if(activeTab==6){
+            return <NewMovies/>
+        }else if(activeTab==7){
+            return <AddMovie/>
         }else{
-            return <Movies/>
+            return <CreateList/>
         }
 
     

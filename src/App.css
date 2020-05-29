@@ -201,6 +201,17 @@
   opacity: .7;
 }
 
+.formAddMovie{
+  background-color: pink;
+}
+
+.scrollForMovies{
+
+  position: relative;
+  
+  overflow-y: auto;
+}
+
 .toTopButton{
   position: fixed; 
   bottom: 20px; 

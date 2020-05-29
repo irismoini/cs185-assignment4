@@ -24,7 +24,6 @@ export class Form extends Component {
         
         }
             
-        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -45,13 +44,9 @@ export class Form extends Component {
             message: this.state.message,  
             visibility: this.state.visibility, 
             email: this.state.email,
-            startedAt: dateTime
-
-        
+            startedAt: dateTime        
         }
 
-        
-  
         itemsRef.push(item);
        
         alert('Form was Successfull Summited!');
@@ -65,8 +60,6 @@ export class Form extends Component {
         });
        
       }
-   
-
     
         render() {
             return (
