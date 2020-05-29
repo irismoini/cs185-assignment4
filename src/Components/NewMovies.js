@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import config from '../config.js';
 import { SRLWrapper } from "simple-react-lightbox";
-import ScrollToTop from "./ScrollToTop";
 import 'react-widgets/dist/css/react-widgets.css';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Body from './Body.js';
+import ScrollToTop from './ScrollToTop';
+import { ThemeConsumer } from 'styled-components';
 
 const firebase = require('firebase');
 
@@ -46,17 +47,21 @@ export class NewMovies extends Component {
                 poster: "",
                 title: "",
                 director: "",
-                rating: ""
+                rating: "",
+                inList: ""
             },
 
             items: [],
             open: false,
             selectedPost: null,
-            listOfMovies: []
+            listOfMovies: [],
+            listSelected: "All",
+            deletedPost: null
         }
     }
 
     componentDidMount() {
+      
         const itemsRef = firebase.database().ref('movies');
         itemsRef.on('value', (snapshot) => {
             let items = snapshot.val();
@@ -102,52 +107,47 @@ export class NewMovies extends Component {
         });
     }
 
-    state = {
-        open: false
-    };
-
     onOpenModal = i => {
         this.setState({
-          open: true,
-          selectedPost: i // When a post is clicked, mark it as selected
+            open: true,
+            selectedPost: i // When a post is clicked, mark it as selected
         });
 
 
-      };
-
-    onCloseModal = () => {
-        this.setState({ open: false });
     };
 
+    onCloseModal = () => {
+        alert("FDJKFJDKLSF");
+        this.setState({ open: false });
+    };
+    
     onDelete = (valueId) => {
 
         this.setState({
             open: false,
-            selectedPost: null // When a post is clicked, mark it as selected
-          });
-          
-          
-          let movieRef= firebase.database().ref('movies/'+valueId);
-          movieRef.remove();
+            selectedPost: null, // When a post is clicked, mark it as selected
+            deletedPost: valueId
+        });
+
+        setTimeout(() => {
+            let movieRef = firebase.database().ref('movies/' + valueId);
+            movieRef.remove();
+        },1000);
 
       
-        
-    
-          
-      
-      };
+    };
 
 
     renderModal = () => {
         // Check to see if there's a selected post. If so, render it.
         if (this.state.selectedPost !== null) {
             const item = this.state.items[this.state.selectedPost];
-            var valueId=item.id;
+            var valueId = item.id;
             return (
                 <div
                     style={{ width: 400, backgroundColor: "white" }}
                 >
-                  
+
                     <img src={item.poster} />
                     <p>Title: {item.title}</p>
                     <p>Director: {item.director}</p>
@@ -155,6 +155,20 @@ export class NewMovies extends Component {
 
                     <div onClick={() => this.onDelete(valueId)}>
                         <button>Delete Movie</button>
+                    </div>
+
+                    <div>
+                        <p>
+                            <DropdownList
+                                defaultValue={"All"}
+                                data={this.state.listOfMovies.map((item) => {
+                                    return item.name
+                                })}
+                                listSelected={this.state.listSelected}
+                                onChange={listSelected => this.setState({ listSelected })}
+                            />
+
+                        </p>
                     </div>
                 </div>
             );
@@ -191,11 +205,13 @@ export class NewMovies extends Component {
                                     <img src={item.poster} />
                                 </div>
 
-                                <Modal open={open} onClose={this.onCloseModal}>
-                                   
+                                <Modal 
+                                open={open} 
+                                onClose={this.onCloseModal} >
+
                                     <div>{this.renderModal()}</div>
-                                
-                                </Modal>      
+
+                                </Modal>
 
                             </div>
                         )
