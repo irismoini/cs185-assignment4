@@ -17,6 +17,7 @@ const firebase = require('firebase');
 let listOfMovieNames = [];
 
 
+
 const options = {
     autoplaySpeed: 1500,
     transitionSpeed: 900,
@@ -69,7 +70,9 @@ export class NewMovies extends Component {
             // List of wishlist.
             listOfMovies: [],
             //listSelected: "All",
-            searchQuery: ''
+            searchQuery: '',
+            numberToLoad: 8,
+            isVisible: true
         }
     }
 
@@ -148,7 +151,7 @@ export class NewMovies extends Component {
         setTimeout(() => {
             let movieRef = firebase.database().ref('movies/' + key);
             movieRef.remove();
-        }, 1000);
+        }, 1500);
     };
 
     onAddingToList = (selected) => {
@@ -174,7 +177,9 @@ export class NewMovies extends Component {
         }
 
         this.setState({
-            selectedMovies: selectedMovies
+            selectedMovies: selectedMovies,
+            numberToLoad: 8,
+            isVisible: true
         });
 
     }
@@ -247,7 +252,8 @@ export class NewMovies extends Component {
             return this.state.selectedMoviesSearch.indexOf(key) > -1;
         });
 
-        return (result.map((key) => {
+        
+        return (result.slice(0, this.state.numberToLoad).map((key) => {
             let item = this.state.allMovies[key];
             if (typeof item === 'undefined') {
                 this.state.selectedMovies.pop(key);
@@ -270,6 +276,8 @@ export class NewMovies extends Component {
                 );
             }
         }));
+    
+    
     }
 
     _onChangeSearch = (query) => {
@@ -298,6 +306,26 @@ export class NewMovies extends Component {
 
     }
 
+    loadMoreMovies = () => {
+        this.setState({
+            numberToLoad: this.state.numberToLoad + 8
+            
+        });
+
+        if (this.state.numberToLoad >= this.state.allMovies.length) {
+            this.setState({
+              isVisible: false
+            });
+          } else {
+            this.setState({
+              isVisible: true
+            });
+          }
+        
+    }
+
+   
+
     render() {
         document.title = "Movies";
 
@@ -315,7 +343,6 @@ export class NewMovies extends Component {
                         <Searchbar
                             placeholder="Search"
                             onChangeText={value => this._onChangeSearch(value)}
-                        //value={this.state.searchQuery} 
                         />
                     </div>
 
@@ -333,6 +360,19 @@ export class NewMovies extends Component {
                 <div className="movieBody">
                     {this.renderMovies()}
                 </div>
+
+
+                {this.state.isVisible && (
+                <div onClick={() => this.loadMoreMovies()}>
+                    <div className="loadMoreButton">Load More Movies</div>
+                </div>
+                )}
+
+
+
+
+
+
             </div>
 
         );
