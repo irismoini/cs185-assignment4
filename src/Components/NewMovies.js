@@ -151,7 +151,7 @@ export class NewMovies extends Component {
         setTimeout(() => {
             let movieRef = firebase.database().ref('movies/' + key);
             movieRef.remove();
-        }, 1500);
+        }, 150);
     };
 
     onAddingToList = (selected) => {
@@ -269,7 +269,8 @@ export class NewMovies extends Component {
 
                         <Modal
                             open={this.state.open}
-                            onClose={this.onCloseModal} >
+                            onClose={this.onCloseModal}
+                            animationDuration = {0}>
                             <div>{this.renderModal()}</div>
                         </Modal>
                     </div>
@@ -379,4 +380,3 @@ export class NewMovies extends Component {
     }
 }
 export default NewMovies;
-
