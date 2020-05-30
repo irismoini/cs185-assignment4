@@ -9,6 +9,8 @@ import { Modal } from "react-responsive-modal";
 import Body from './Body.js';
 import ScrollToTop from './ScrollToTop';
 import { ThemeConsumer } from 'styled-components';
+import { Searchbar } from 'react-native-paper';
+//import { SearchBar } from 'react-native-elements';
 
 const firebase = require('firebase');
 
@@ -59,6 +61,7 @@ export class NewMovies extends Component {
             allMovies: [],
             // Holds the indeces of movies that should be displayed
             selectedMovies: [],
+            selectedMoviesSearch: [],
             // Is panel open?
             open: false,
             // Holds index of the movie currently selected.
@@ -66,8 +69,11 @@ export class NewMovies extends Component {
             // List of wishlist.
             listOfMovies: [],
             //listSelected: "All",
+            searchQuery: ''
         }
     }
+
+
 
     componentDidMount() {
         const itemsRef = firebase.database().ref('movies');
@@ -114,9 +120,11 @@ export class NewMovies extends Component {
                 listOfMovies: thenewState
             });
         });
+
         setTimeout(() => {
             this.setList("All");
-        }, 100);
+            this._onChangeSearch("");
+        }, 1000);
 
     }
 
@@ -152,7 +160,6 @@ export class NewMovies extends Component {
     }
 
     setList = (selectedList) => {
-        console.log(selectedList)
 
         var selectedMovies = []
 
@@ -236,10 +243,15 @@ export class NewMovies extends Component {
 
     renderMovies = () => {
 
-        return (this.state.selectedMovies.map((key) => {
+        var result = this.state.selectedMovies.filter((key) => {
+            return this.state.selectedMoviesSearch.indexOf(key) > -1;
+        });
+
+        return (result.map((key) => {
             let item = this.state.allMovies[key];
             if (typeof item === 'undefined') {
                 this.state.selectedMovies.pop(key);
+                this.state.selectedMoviesSearch.pop(key);
             } else {
                 return (
                     <div>
@@ -260,15 +272,54 @@ export class NewMovies extends Component {
         }));
     }
 
+    _onChangeSearch = (query) => {
+        //this.setState({ searchQuery: query });
+        console.log(query);
+        // Check all movies, see what matches, update selectedMovies
+
+        var selectedMovies = []
+
+        for (let key in this.state.allMovies) {
+            let myTitle = this.state.allMovies[key].title
+
+            if (myTitle.includes(query)) {
+                selectedMovies.push(key);
+
+
+            }
+        }
+
+
+
+
+        this.setState({
+            selectedMoviesSearch: selectedMovies
+        });
+
+    }
 
     render() {
         document.title = "Movies";
 
+
         return (
+
 
             <div>
                 <div className="headerForPages">
                     <h1>Movies</h1>
+                </div>
+
+                <div className="displayC">
+                    <div>
+                        <Searchbar
+                            placeholder="Search"
+                            onChangeText={value => this._onChangeSearch(value)}
+                        //value={this.state.searchQuery} 
+                        />
+                    </div>
+
+
                 </div>
 
                 <DropdownList
@@ -277,7 +328,6 @@ export class NewMovies extends Component {
                         return item.name
                     })}
                     onChange={value => this.setList(value)}
-
                 />
 
                 <div className="movieBody">
