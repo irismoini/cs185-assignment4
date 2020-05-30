@@ -72,10 +72,47 @@ export class NewMovies extends Component {
             //listSelected: "All",
             searchQuery: '',
             numberToLoad: 8,
-            isVisible: true
+            isVisible: true,
+            visibleMovies: []
         }
     }
 
+    update() {
+        var result = this.state.selectedMovies.filter((key) => {
+            return this.state.selectedMoviesSearch.indexOf(key) > -1;
+        });
+        //console.log(result)
+
+        // result = [_masdfjkasa, _m1234jfdsjq, _]
+        
+        for (var index in result) {
+            let key = result[index];
+            if (!(key in this.state.allMovies)) {
+                this.state.selectedMovies = this.state.selectedMovies.filter(movieid => 
+                    movieid !== key
+                );
+                this.state.selectedMoviesSearch = this.state.selectedMoviesSearch.filter(movieid => 
+                    movieid !== key
+                );
+                //result.pop(index);
+                //console.log(keyname)
+            }
+        }
+
+        console.log(result.length);
+
+        if (this.state.numberToLoad >= result.length) {
+            this.setState({
+              visibleMovies: result,
+              isVisible: false
+            });
+          } else {
+            this.setState({
+              visibleMovies: result,
+              isVisible: true
+            });
+          }
+    }
 
 
     componentDidMount() {
@@ -129,6 +166,7 @@ export class NewMovies extends Component {
             this._onChangeSearch("");
         }, 1000);
 
+        setInterval(() => this.update(), 50);
     }
 
     onOpenModal = key => {
@@ -246,19 +284,10 @@ export class NewMovies extends Component {
         }
     }
 
-    renderMovies = () => {
-
-        var result = this.state.selectedMovies.filter((key) => {
-            return this.state.selectedMoviesSearch.indexOf(key) > -1;
-        });
-
-        
-        return (result.slice(0, this.state.numberToLoad).map((key) => {
+    renderMovies = () => {        
+        return (this.state.visibleMovies.slice(0, this.state.numberToLoad).map((key) => {
             let item = this.state.allMovies[key];
-            if (typeof item === 'undefined') {
-                this.state.selectedMovies.pop(key);
-                this.state.selectedMoviesSearch.pop(key);
-            } else {
+            if (typeof item !== 'undefined') {
                 return (
                     <div>
                         <div style={styles}
@@ -312,17 +341,6 @@ export class NewMovies extends Component {
             numberToLoad: this.state.numberToLoad + 8
             
         });
-
-        if (this.state.numberToLoad >= this.state.allMovies.length) {
-            this.setState({
-              isVisible: false
-            });
-          } else {
-            this.setState({
-              isVisible: true
-            });
-          }
-        
     }
 
    
