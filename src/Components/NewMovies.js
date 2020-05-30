@@ -14,6 +14,7 @@ const firebase = require('firebase');
 
 let listOfMovieNames = [];
 
+
 const options = {
     autoplaySpeed: 1500,
     transitionSpeed: 900,
@@ -33,15 +34,18 @@ const styles = {
     textAlign: "center"
 };
 
+
 export class NewMovies extends Component {
 
     constructor() {
         super();
         this.state = {
+            /*
             lists: {
                 name: ""
             },
-
+*/
+            /*
             movies: {
                 imbdId: "",
                 poster: "",
@@ -50,36 +54,41 @@ export class NewMovies extends Component {
                 rating: "",
                 inList: ""
             },
-
-            items: [],
+*/
+            // Holds every single movie!
+            allMovies: [],
+            // Holds the indeces of movies that should be displayed
+            selectedMovies: [],
+            // Is panel open?
             open: false,
+            // Holds index of the movie currently selected.
             selectedPost: null,
+            // List of wishlist.
             listOfMovies: [],
-            listSelected: "All",
-            deletedPost: null
+            //listSelected: "All",
         }
     }
 
     componentDidMount() {
-      
         const itemsRef = firebase.database().ref('movies');
         itemsRef.on('value', (snapshot) => {
             let items = snapshot.val();
-            let newState = [];
+            let newMovies = []
             for (let item in items) {
-                newState.push({
-                    id: item,
+                newMovies[item] = {
                     imbdId: items[item].imbdId,
                     poster: items[item].poster,
                     title: items[item].title,
                     director: items[item].director,
                     rating: items[item].rating,
-                });
+                    lists: items[item].inList
+                }
             }
 
             this.setState({
-                items: newState
+                allMovies: newMovies
             });
+
 
         });
 
@@ -105,44 +114,95 @@ export class NewMovies extends Component {
                 listOfMovies: thenewState
             });
         });
+        setTimeout(() => {
+            this.setList("All");
+        }, 100);
+
     }
 
-    onOpenModal = i => {
+    onOpenModal = key => {
         this.setState({
             open: true,
-            selectedPost: i // When a post is clicked, mark it as selected
+            selectedPost: key // When a post is clicked, mark it as selected
         });
-
-
     };
 
     onCloseModal = () => {
-        alert("FDJKFJDKLSF");
         this.setState({ open: false });
     };
-    
-    onDelete = (valueId) => {
 
+    onDelete = (key) => {
         this.setState({
             open: false,
             selectedPost: null, // When a post is clicked, mark it as selected
-            deletedPost: valueId
         });
 
         setTimeout(() => {
-            let movieRef = firebase.database().ref('movies/' + valueId);
+            let movieRef = firebase.database().ref('movies/' + key);
             movieRef.remove();
-        },1000);
-
-      
+        }, 1000);
     };
+
+    onAddingToList = (selected) => {
+        const item = this.state.allMovies[this.state.selectedPost];
+        var valueId = this.state.selectedPost;
+
+        firebase.database().ref('movies/' + valueId + '/inList').push(selected);
+
+    }
+
+    setList = (selectedList) => {
+        console.log(selectedList)
+
+        var selectedMovies = []
+
+        for (let key in this.state.allMovies) {
+            let myList = this.state.allMovies[key].lists
+            for (let [keys, value] of Object.entries(myList)) {
+                if (value == selectedList) {
+                    selectedMovies.push(key);
+                }
+
+            }
+        }
+
+        this.setState({
+            selectedMovies: selectedMovies
+        });
+
+    }
 
 
     renderModal = () => {
         // Check to see if there's a selected post. If so, render it.
         if (this.state.selectedPost !== null) {
-            const item = this.state.items[this.state.selectedPost];
-            var valueId = item.id;
+            const item = this.state.allMovies[this.state.selectedPost];
+            var valueId = this.state.selectedPost;
+
+            //got all my Movie Categories
+            var allMovieCategories = [];
+            for (var i = 0; i < this.state.listOfMovies.length; i++) {
+                allMovieCategories.push(this.state.listOfMovies[i].name);
+            }
+
+            //look through database to get my inList
+            var inListOfMovie = [];
+
+            const itemsRef = firebase.database().ref("movies/" + valueId + "/inList");
+            itemsRef.on('value', (snapshot) => {
+                let items = snapshot.val();
+                for (let item in items) {
+                    itemsRef.child(item).on("value", (valuesnapshot) => {
+                        inListOfMovie.push(valuesnapshot.val());
+                    });
+                }
+            });
+
+            //subtract lists from each other
+            var minusList = allMovieCategories.filter(n => !inListOfMovie.includes(n));
+
+            let alertWhenSelected = () => alert('Movie Added To List');
+
             return (
                 <div
                     style={{ width: 400, backgroundColor: "white" }}
@@ -160,12 +220,11 @@ export class NewMovies extends Component {
                     <div>
                         <p>
                             <DropdownList
-                                defaultValue={"All"}
-                                data={this.state.listOfMovies.map((item) => {
-                                    return item.name
-                                })}
-                                listSelected={this.state.listSelected}
-                                onChange={listSelected => this.setState({ listSelected })}
+                                defaultValue={"Add Movie To List"}
+                                onSelect={alertWhenSelected}
+                                data={minusList}
+                                messages={{ emptyList: "This movie already exits in all current lists." }}
+                                onChange={value => this.onAddingToList(value)}
                             />
 
                         </p>
@@ -175,10 +234,35 @@ export class NewMovies extends Component {
         }
     }
 
+    renderMovies = () => {
+
+        return (this.state.selectedMovies.map((key) => {
+            let item = this.state.allMovies[key];
+            if (typeof item === 'undefined') {
+                this.state.selectedMovies.pop(key);
+            } else {
+                return (
+                    <div>
+                        <div style={styles}
+                            onClick={() => this.onOpenModal(key)} // Pass the id of the clicked post
+                        >
+                            <img src={item.poster} />
+                        </div>
+
+                        <Modal
+                            open={this.state.open}
+                            onClose={this.onCloseModal} >
+                            <div>{this.renderModal()}</div>
+                        </Modal>
+                    </div>
+                );
+            }
+        }));
+    }
+
+
     render() {
         document.title = "Movies";
-
-        const { open } = this.state;
 
         return (
 
@@ -192,33 +276,13 @@ export class NewMovies extends Component {
                     data={this.state.listOfMovies.map((item) => {
                         return item.name
                     })}
+                    onChange={value => this.setList(value)}
+
                 />
 
                 <div className="movieBody">
-                    {this.state.items.map((item, i) => {
-                        return (
-                            <div className="scrollForMovies">
-
-                                <div style={styles} key={item.id}
-                                    onClick={() => this.onOpenModal(i)} // Pass the id of the clicked post
-                                >
-                                    <img src={item.poster} />
-                                </div>
-
-                                <Modal 
-                                open={open} 
-                                onClose={this.onCloseModal} >
-
-                                    <div>{this.renderModal()}</div>
-
-                                </Modal>
-
-                            </div>
-                        )
-                    })}
-
+                    {this.renderMovies()}
                 </div>
-
             </div>
 
         );
