@@ -73,7 +73,15 @@ export class App extends Component {
       },
       {
         id: 6,
-        title: "Favorite Movies"
+        title: "Movies"
+      },
+      {
+        id: 7,
+        title: "Add Movie"
+      },
+      {
+        id: 8,
+        title: "Create List"
       }
     ]
 
@@ -86,7 +94,7 @@ export class App extends Component {
             changeTab={this.changeTab}
             activeTab={this.state.activeTab} />
         </div>
-        <SimpleReactLightbox>
+       <SimpleReactLightbox> 
           <div className="main-body">
             <Body activeTab={this.state.activeTab} />
           </div>
