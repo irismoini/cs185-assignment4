@@ -99,7 +99,6 @@ export class NewMovies extends Component {
             }
         }
 
-        console.log(result.length);
 
         if (this.state.numberToLoad >= result.length) {
             this.setState({
@@ -112,6 +111,8 @@ export class NewMovies extends Component {
               isVisible: true
             });
           }
+
+          console.log("Modal open? ", this.state.open);
     }
 
 
@@ -174,10 +175,15 @@ export class NewMovies extends Component {
             open: true,
             selectedPost: key // When a post is clicked, mark it as selected
         });
+        console.log("Opening modal");
+
     };
 
     onCloseModal = () => {
+       // alert("CLOSING!!!!")
         this.setState({ open: false });
+        console.log("Closing modal");
+
     };
 
     onDelete = (key) => {
@@ -284,8 +290,10 @@ export class NewMovies extends Component {
         }
     }
 
-    renderMovies = () => {        
-        return (this.state.visibleMovies.slice(0, this.state.numberToLoad).map((key) => {
+    renderMovies = () => {    
+        return (    
+            
+            this.state.visibleMovies.slice(0, this.state.numberToLoad).map((key) => {
             let item = this.state.allMovies[key];
             if (typeof item !== 'undefined') {
                 return (
@@ -295,19 +303,11 @@ export class NewMovies extends Component {
                         >
                             <img src={item.poster} />
                         </div>
-
-                        <Modal
-                            open={this.state.open}
-                            onClose={this.onCloseModal}
-                            animationDuration = {0}>
-                            <div>{this.renderModal()}</div>
-                        </Modal>
                     </div>
                 );
             }
-        }));
-    
-    
+        }) 
+        )
     }
 
     _onChangeSearch = (query) => {
@@ -378,14 +378,26 @@ export class NewMovies extends Component {
 
                 <div className="movieBody">
                     {this.renderMovies()}
+               
+
+                <div>
+                             <Modal
+                                open={this.state.open}
+                                onClose={this.onCloseModal}
+                                closeOnEsc = {true}
+                                animationDuration = {0}>
+                                <div>{this.renderModal()}</div>
+                            </Modal>
                 </div>
 
+                </div>
 
                 {this.state.isVisible && (
                 <div onClick={() => this.loadMoreMovies()}>
                     <div className="loadMoreButton">Load More Movies</div>
                 </div>
                 )}
+
 
 
 
