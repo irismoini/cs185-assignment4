@@ -17,6 +17,7 @@ export class AddMovie extends Component {
                 title: "",
                 director: "",
                 rating: "",
+                actors:"",
                 inList: ""
             },
 
@@ -54,6 +55,7 @@ export class AddMovie extends Component {
                             title: response.data.Title,
                             director: response.data.Director,
                             rating: response.data.imdbRating,
+                            actors: response.data.Actors,
                             inList: ["All"]
                         }
 

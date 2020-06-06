@@ -10,12 +10,13 @@ import Body from './Body.js';
 import ScrollToTop from './ScrollToTop';
 import { ThemeConsumer } from 'styled-components';
 import { Searchbar } from 'react-native-paper';
-//import { SearchBar } from 'react-native-elements';
+import Graph from './Graph.js';
+
 
 const firebase = require('firebase');
 
-let listOfMovieNames = [];
 
+let listOfMovieNames = [];
 
 
 const options = {
@@ -43,21 +44,6 @@ export class NewMovies extends Component {
     constructor() {
         super();
         this.state = {
-            /*
-            lists: {
-                name: ""
-            },
-*/
-            /*
-            movies: {
-                imbdId: "",
-                poster: "",
-                title: "",
-                director: "",
-                rating: "",
-                inList: ""
-            },
-*/
             // Holds every single movie!
             allMovies: [],
             // Holds the indeces of movies that should be displayed
@@ -73,7 +59,8 @@ export class NewMovies extends Component {
             searchQuery: '',
             numberToLoad: 8,
             isVisible: true,
-            visibleMovies: []
+            visibleMovies: [],
+            isGraph: false
         }
     }
 
@@ -81,40 +68,31 @@ export class NewMovies extends Component {
         var result = this.state.selectedMovies.filter((key) => {
             return this.state.selectedMoviesSearch.indexOf(key) > -1;
         });
-        //console.log(result)
 
-        // result = [_masdfjkasa, _m1234jfdsjq, _]
-        
         for (var index in result) {
             let key = result[index];
             if (!(key in this.state.allMovies)) {
-                this.state.selectedMovies = this.state.selectedMovies.filter(movieid => 
+                this.state.selectedMovies = this.state.selectedMovies.filter(movieid =>
                     movieid !== key
                 );
-                this.state.selectedMoviesSearch = this.state.selectedMoviesSearch.filter(movieid => 
+                this.state.selectedMoviesSearch = this.state.selectedMoviesSearch.filter(movieid =>
                     movieid !== key
                 );
-                //result.pop(index);
-                //console.log(keyname)
             }
         }
 
-
         if (this.state.numberToLoad >= result.length) {
             this.setState({
-              visibleMovies: result,
-              isVisible: false
+                visibleMovies: result,
+                isVisible: false
             });
-          } else {
+        } else {
             this.setState({
-              visibleMovies: result,
-              isVisible: true
+                visibleMovies: result,
+                isVisible: true
             });
-          }
-
-          console.log("Modal open? ", this.state.open);
+        }
     }
-
 
     componentDidMount() {
         const itemsRef = firebase.database().ref('movies');
@@ -128,6 +106,7 @@ export class NewMovies extends Component {
                     title: items[item].title,
                     director: items[item].director,
                     rating: items[item].rating,
+                    actors: items[item].actors,
                     lists: items[item].inList
                 }
             }
@@ -168,6 +147,7 @@ export class NewMovies extends Component {
         }, 1000);
 
         setInterval(() => this.update(), 50);
+    
     }
 
     onOpenModal = key => {
@@ -175,15 +155,11 @@ export class NewMovies extends Component {
             open: true,
             selectedPost: key // When a post is clicked, mark it as selected
         });
-        console.log("Opening modal");
-
+    
     };
 
     onCloseModal = () => {
-       // alert("CLOSING!!!!")
         this.setState({ open: false });
-        console.log("Closing modal");
-
     };
 
     onDelete = (key) => {
@@ -209,6 +185,7 @@ export class NewMovies extends Component {
     setList = (selectedList) => {
 
         var selectedMovies = []
+        var graphList=false;
 
         for (let key in this.state.allMovies) {
             let myList = this.state.allMovies[key].lists
@@ -219,11 +196,18 @@ export class NewMovies extends Component {
 
             }
         }
+     
+        if(selectedList=="Graph"){
+            graphList=true;
+        }else{
+            graphList=false;
+        }
 
         this.setState({
             selectedMovies: selectedMovies,
             numberToLoad: 8,
-            isVisible: true
+            isVisible: true,
+            isGraph: graphList
         });
 
     }
@@ -290,31 +274,29 @@ export class NewMovies extends Component {
         }
     }
 
-    renderMovies = () => {    
-        return (    
-            
+
+    renderMovies = () => {
+        return (
+
             this.state.visibleMovies.slice(0, this.state.numberToLoad).map((key) => {
-            let item = this.state.allMovies[key];
-            if (typeof item !== 'undefined') {
-                return (
-                    <div>
-                        <div style={styles}
-                            onClick={() => this.onOpenModal(key)} // Pass the id of the clicked post
-                        >
-                            <img src={item.poster} />
+                let item = this.state.allMovies[key];
+                if (typeof item !== 'undefined') {
+                    return (
+                        <div>
+                            <div style={styles}
+                                onClick={() => this.onOpenModal(key)} // Pass the id of the clicked post
+                            >
+                                <img src={item.poster} />
+                            </div>
                         </div>
-                    </div>
-                );
-            }
-        }) 
+                    );
+                }
+            })
         )
     }
 
     _onChangeSearch = (query) => {
-        //this.setState({ searchQuery: query });
-        console.log(query);
         // Check all movies, see what matches, update selectedMovies
-
         var selectedMovies = []
 
         for (let key in this.state.allMovies) {
@@ -327,9 +309,6 @@ export class NewMovies extends Component {
             }
         }
 
-
-
-
         this.setState({
             selectedMoviesSearch: selectedMovies
         });
@@ -339,19 +318,52 @@ export class NewMovies extends Component {
     loadMoreMovies = () => {
         this.setState({
             numberToLoad: this.state.numberToLoad + 8
-            
+
         });
     }
 
-   
+    forGraph = () => {
+
+    if(!this.state.isGraph){
+
+        return(
+        <div>
+            <div className="movieBody">
+                    {this.renderMovies()};
+
+                    <div>
+                        <Modal
+                            open={this.state.open}
+                            onClose={this.onCloseModal}
+                            closeOnEsc={true}
+                            animationDuration={0}>
+                            <div>{this.renderModal()}</div>
+                        </Modal>
+                    </div>
+
+                </div>
+
+                {this.state.isVisible && (
+                    <div onClick={() => this.loadMoreMovies()}>
+                        <div className="loadMoreButton">Load More Movies</div>
+                    </div>
+                )}
+        </div>
+        )
+    }else{
+        return( <Graph/>)    
+
+    }
+     
+      
+        //this.state.selectedMovies holds my movies I want to work with 
+    }  
+    
 
     render() {
         document.title = "Movies";
 
-
         return (
-
-
             <div>
                 <div className="headerForPages">
                     <h1>Movies</h1>
@@ -364,8 +376,6 @@ export class NewMovies extends Component {
                             onChangeText={value => this._onChangeSearch(value)}
                         />
                     </div>
-
-
                 </div>
 
                 <DropdownList
@@ -375,36 +385,13 @@ export class NewMovies extends Component {
                     })}
                     onChange={value => this.setList(value)}
                 />
-
-                <div className="movieBody">
-                    {this.renderMovies()}
-               
-
-                <div>
-                             <Modal
-                                open={this.state.open}
-                                onClose={this.onCloseModal}
-                                closeOnEsc = {true}
-                                animationDuration = {0}>
-                                <div>{this.renderModal()}</div>
-                            </Modal>
-                </div>
-
-                </div>
-
-                {this.state.isVisible && (
-                <div onClick={() => this.loadMoreMovies()}>
-                    <div className="loadMoreButton">Load More Movies</div>
-                </div>
-                )}
-
-
-
-
-
-
+                
+        
+                {this.forGraph()}       
+                
 
             </div>
+                
 
         );
     }
