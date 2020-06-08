@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/cs185-assignment4/static/css/main.d5a5767c.chunk.css",
-    "main.js": "/cs185-assignment4/static/js/main.83ec4246.chunk.js",
-    "main.js.map": "/cs185-assignment4/static/js/main.83ec4246.chunk.js.map",
+    "main.css": "/cs185-assignment4/static/css/main.55639a1a.chunk.css",
+    "main.js": "/cs185-assignment4/static/js/main.b7ab689e.chunk.js",
+    "main.js.map": "/cs185-assignment4/static/js/main.b7ab689e.chunk.js.map",
     "runtime-main.js": "/cs185-assignment4/static/js/runtime-main.3b62a101.js",
     "runtime-main.js.map": "/cs185-assignment4/static/js/runtime-main.3b62a101.js.map",
     "static/css/2.5db8a242.chunk.css": "/cs185-assignment4/static/css/2.5db8a242.chunk.css",
-    "static/js/2.03f4da43.chunk.js": "/cs185-assignment4/static/js/2.03f4da43.chunk.js",
-    "static/js/2.03f4da43.chunk.js.map": "/cs185-assignment4/static/js/2.03f4da43.chunk.js.map",
+    "static/js/2.05e23bbe.chunk.js": "/cs185-assignment4/static/js/2.05e23bbe.chunk.js",
+    "static/js/2.05e23bbe.chunk.js.map": "/cs185-assignment4/static/js/2.05e23bbe.chunk.js.map",
     "index.html": "/cs185-assignment4/index.html",
-    "precache-manifest.ef3581abd2628c234fc71c3c139ab3af.js": "/cs185-assignment4/precache-manifest.ef3581abd2628c234fc71c3c139ab3af.js",
+    "precache-manifest.f262bf18f8164b3d2416b86b77d267cf.js": "/cs185-assignment4/precache-manifest.f262bf18f8164b3d2416b86b77d267cf.js",
     "service-worker.js": "/cs185-assignment4/service-worker.js",
     "static/css/2.5db8a242.chunk.css.map": "/cs185-assignment4/static/css/2.5db8a242.chunk.css.map",
-    "static/css/main.d5a5767c.chunk.css.map": "/cs185-assignment4/static/css/main.d5a5767c.chunk.css.map",
-    "static/js/2.03f4da43.chunk.js.LICENSE.txt": "/cs185-assignment4/static/js/2.03f4da43.chunk.js.LICENSE.txt",
+    "static/css/main.55639a1a.chunk.css.map": "/cs185-assignment4/static/css/main.55639a1a.chunk.css.map",
+    "static/js/2.05e23bbe.chunk.js.LICENSE.txt": "/cs185-assignment4/static/js/2.05e23bbe.chunk.js.LICENSE.txt",
     "static/media/f1.jpg": "/cs185-assignment4/static/media/f1.79cfe399.jpg",
     "static/media/f4.jpg": "/cs185-assignment4/static/media/f4.5da03b61.jpg",
     "static/media/f5.jpg": "/cs185-assignment4/static/media/f5.c0e2a818.jpg",
@@ -31,8 +31,8 @@
   "entrypoints": [
     "static/js/runtime-main.3b62a101.js",
     "static/css/2.5db8a242.chunk.css",
-    "static/js/2.03f4da43.chunk.js",
-    "static/css/main.d5a5767c.chunk.css",
-    "static/js/main.83ec4246.chunk.js"
+    "static/js/2.05e23bbe.chunk.js",
+    "static/css/main.55639a1a.chunk.css",
+    "static/js/main.b7ab689e.chunk.js"
   ]
 }
