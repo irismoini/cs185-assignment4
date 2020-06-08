@@ -115,7 +115,6 @@ export class NewMovies extends Component {
                 allMovies: newMovies
             });
 
-
         });
 
         const itemsref = firebase.database().ref('lists');
@@ -132,7 +131,6 @@ export class NewMovies extends Component {
             for (let movieKVP in listOfMovies) {
                 listOfMovieNames.push(
                     movieKVP.name
-
                 );
             }
 
@@ -241,6 +239,14 @@ export class NewMovies extends Component {
             //subtract lists from each other
             var minusList = allMovieCategories.filter(n => !inListOfMovie.includes(n));
 
+            for(var i=0; i<minusList.length; i++){
+                if(minusList[i]=="Graph"){
+                delete minusList[i];
+                }
+
+            }
+           
+
             let alertWhenSelected = () => alert('Movie Added To List');
 
             return (
@@ -305,7 +311,6 @@ export class NewMovies extends Component {
             if (myTitle.includes(query)) {
                 selectedMovies.push(key);
 
-
             }
         }
 
@@ -329,7 +334,7 @@ export class NewMovies extends Component {
         return(
         <div>
             <div className="movieBody">
-                    {this.renderMovies()};
+                    {this.renderMovies()}
 
                     <div>
                         <Modal
@@ -356,12 +361,11 @@ export class NewMovies extends Component {
     }
      
       
-        //this.state.selectedMovies holds my movies I want to work with 
     }  
     
 
     render() {
-        document.title = "Movies";
+        document.title = "Movies"
 
         return (
             <div>
