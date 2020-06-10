@@ -236,7 +236,6 @@
 
 .loadMoreButton{
   text-align: center;
-
   bottom: 40px; 
   right: 20px; 
   outline: none;
@@ -253,7 +252,7 @@
 }
 
 
-div.tooltip {	
+.tooltip {	
   position: absolute;			
   text-align: center;			
   width: 60px;					
@@ -265,4 +264,5 @@ div.tooltip {
   border-radius: 8px;			
   pointer-events: none;			
 }
+
 

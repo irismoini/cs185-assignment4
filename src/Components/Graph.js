@@ -357,17 +357,28 @@ export class Graph extends Component {
             if(!d3.event.active) simulation.alphaTarget(0.3).restart();
             d.fx=d.x;
             d.fy=d.y;
+            console.log("Started ", d)
         }
 
         function dragged(d){
             d.fx=d3.event.x;
             d.fy=d3.event.y;
+            console.log("Continued ", d)
+            d3.select('#tooltip')
+                //.style('left', (d.x * 100 / 1920)  + '%')
+                //.style('top', (d.y * 100 / 1080)+ '%')
+                //.style('left', (d.x * 100 / 1920)  + '%')
+                //.style('top', (d.y * 100 / 1080)+ '%')
+                .style('left', d.x +'px' )
+                .style('top', d.y+ 'px')
         }
 
         function dragEnded(d){
             if(!d3.event.active) simulation.alphaTarget(0);
             d.fx=null;
             d.fy=null;
+            console.log("Continued ", d)
+
         }
 
         return d3.drag()
@@ -556,6 +567,7 @@ export class Graph extends Component {
             }
             return
         }
+        var override = false;
 
 
         simulation.on("tick",()=>{
@@ -591,14 +603,28 @@ export class Graph extends Component {
                 d3.select("#tooltip").style('opacity', 1).text(e.actor)
             })
             .on('mouseout', function(e) {
-                d3.select("#tooltip").style('opacity', 0).text(e.actor)
+                if (!override) {
+                    d3.select("#tooltip").style('opacity', 0).text(e.actor)
+                }
             }).on("mousemove", function(e) {
                 d3.select('#tooltip')
                     .style('left', (d3.event.pageX+10) + 'px')
                     .style('top', (d3.event.pageY-10) + 'px')
+                override =false
+
+            }).on("mousedown", function(d) {
+                override = true;
+            }).on("mouseup", function(d) {
+                console.log("mouseup")
+                override =false
+                d3.select("#tooltip").style('opacity', 0).text(d.actor)
+
             })
+
+
             .call(this.drag(simulation));
 
+            //
         
 
         
