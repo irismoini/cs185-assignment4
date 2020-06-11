@@ -364,13 +364,15 @@ export class Graph extends Component {
             d.fx=d3.event.x;
             d.fy=d3.event.y;
             console.log("Continued ", d)
+            
             d3.select('#tooltip')
+                .style('left', (d.x * 100 / 1920)  + '%')
+                .style('top', ((d.y * 100 / 1080)+25) + '%')
                 //.style('left', (d.x * 100 / 1920)  + '%')
                 //.style('top', (d.y * 100 / 1080)+ '%')
-                //.style('left', (d.x * 100 / 1920)  + '%')
-                //.style('top', (d.y * 100 / 1080)+ '%')
-                .style('left', d.x +'px' )
-                .style('top', d.y+ 'px')
+                //.style('left', d.x +'px' )
+                //.style('top', d.y+ 'px')
+                
         }
 
         function dragEnded(d){
@@ -422,8 +424,6 @@ export class Graph extends Component {
             .force("link", d3.forceLink().links(obj_links).id(d=> {return d.index;}).distance(200))  
             .force("charge",d3.forceManyBody())
             .force("center", d3.forceCenter(width/2, height/2));
-
-
             
         var config = {
                 "avatar_size" : 286
